@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { DeleteMember } from "../api/MemberApi";
+import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [userId, setUserId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -18,14 +20,13 @@ const Mypage = () => {
 
   const handleDelete = async () => {
     const token = sessionStorage.getItem("token");
-    console.log(token);
     try {
-      await DeleteMember(userId, password, token);
-
-      alert("회원 탈퇴가 완료되었습니다.");
+      const result = await DeleteMember(userId, password, token);
+      alert(result);
       setUserId("");
       setPassword("");
       closeModal();
+      navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);

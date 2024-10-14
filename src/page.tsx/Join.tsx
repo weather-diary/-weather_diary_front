@@ -27,8 +27,7 @@ const Join = () => {
 
     try {
       const result = await createMember(joinData);
-      console.log(result);
-      alert("회원가입이 성공했습니다.");
+      alert(result);
       navigate("/");
     } catch (error) {
       if (error instanceof Error) {
