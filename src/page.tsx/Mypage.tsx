@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { DeleteMember } from "../api/MemberApi";
 import { useNavigate } from "react-router-dom";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const Mypage = () => {
 
   return (
     <Container>
-      <DeleteButton onClick={openModal}>회원 탈퇴</DeleteButton>
+      <Button onClick={openModal}>회원 탈퇴</Button>
 
       {showModal && (
         <ModalOverlay>
@@ -44,20 +46,22 @@ const Mypage = () => {
             <h2>회원 탈퇴</h2>
             <Input
               type="text"
+              name="userId"
               placeholder="User ID"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
             />
             <Input
               type="password"
+              name="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
             <ModalActions>
-              <ConfirmButton onClick={handleDelete}>탈퇴</ConfirmButton>
-              <CancelButton onClick={closeModal}>취소</CancelButton>
+              <Button onClick={handleDelete}>탈퇴</Button>
+              <Button onClick={closeModal}>취소</Button>
             </ModalActions>
           </Modal>
         </ModalOverlay>
@@ -73,21 +77,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-`;
-
-const DeleteButton = styled.button`
-  background-color: #ff4b4b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ff2b2b;
-  }
 `;
 
 const ModalOverlay = styled.div`
@@ -109,56 +98,12 @@ const Modal = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 300px;
   text-align: center;
-
-  h2 {
-    margin-bottom: 20px;
-  }
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
 `;
 
 const ModalActions = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-`;
-
-const ConfirmButton = styled.button`
-  background-color: #ff4b4b;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  flex: 1;
-  margin-right: 10px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ff2b2b;
-  }
-`;
-
-const CancelButton = styled.button`
-  background-color: #ccc;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  flex: 1;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #999;
-  }
 `;
 
 const ErrorMessage = styled.p`
