@@ -22,7 +22,6 @@ export const login = async (login: LoginProps) => {
       `${process.env.REACT_APP_API_ADDRESS}signin`,
       login
     );
-    console.log(response);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -35,17 +34,18 @@ export const login = async (login: LoginProps) => {
 export const DeleteMember = async (
   userId: string,
   password: string,
-  token: string
+  token: string | null
 ) => {
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_API_ADDRESS}/delete/member?userId=${userId}`,
+      `${process.env.REACT_APP_API_ADDRESS}delete/member`,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: {
+          userId,
           password,
         },
       }
@@ -53,7 +53,9 @@ export const DeleteMember = async (
 
     return response.data;
   } catch (error) {
-    console.error("Error deleting member:", error);
-    throw error;
+    if (axios.isAxiosError(error) && error.response) {
+      console.error("Error:", error.response.data);
+      throw new Error(error.response.data);
+    }
   }
 };
