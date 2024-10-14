@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import { createMember } from "../api/Join";
+import { createMember } from "../api/MemberApi";
 
 const Join = () => {
   const navigate = useNavigate();
@@ -31,7 +31,9 @@ const Join = () => {
       alert("회원가입이 성공했습니다.");
       navigate("/");
     } catch (error) {
-      alert("회원가입에 실패했습니다. 다시 시도해 주세요.");
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 

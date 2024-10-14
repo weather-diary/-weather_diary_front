@@ -1,10 +1,10 @@
 import React, { useState, FormEvent } from "react";
 import styled from "styled-components";
-import { LoginProps } from "../types/Login";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/Login";
+import { LoginProps } from "../types/MemberTypes";
+import { login } from "../api/MemberApi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,20 +24,18 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Login attempted with:", loginData.userId, loginData.password);
 
     try {
       const result = await login(loginData);
       sessionStorage.setItem("token", result);
       navigate("diarylist");
     } catch (error) {
-      alert("로그인에 실패했습니다. 정보를 다시 확인해 주세요.");
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   };
 
-  const handleSignUp = () => {
-    navigate("/join");
-  };
   return (
     <LoginContainer>
       <LoginForm onSubmit={handleSubmit}>
@@ -60,7 +58,7 @@ const Login = () => {
         />
         <ButtonBox>
           <Button type="submit">로그인</Button>
-          <Button type="button" onClick={handleSignUp}>
+          <Button type="button" onClick={() => navigate("/join")}>
             회원가입
           </Button>
         </ButtonBox>

@@ -43,6 +43,8 @@ const Header = () => {
     switch (location.pathname) {
       case "/diarylist":
         return "일기 목록";
+      case "/mypage":
+        return "마이페이지";
       default:
         return "";
     }
