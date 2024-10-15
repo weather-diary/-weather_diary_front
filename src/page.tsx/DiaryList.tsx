@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { WeatherData } from "../types/WeatherDataTypes";
 import Calendar from "../components/Calendar";
+import styled from "styled-components";
 
 const DiaryList: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
@@ -16,11 +17,14 @@ const DiaryList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">날씨 일기</h1>
+    <CalendarBox>
       <Calendar onDateClick={handleDateClick} weatherData={weatherData} />
-    </div>
+    </CalendarBox>
   );
 };
 
 export default DiaryList;
+
+const CalendarBox = styled.div`
+  margin-top: 20px;
+`;
