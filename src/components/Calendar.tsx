@@ -149,7 +149,8 @@ const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
-  background-color: #e0e0e0;
+  background-color: #dce7ff96;
+  padding: 10px;
 `;
 
 const DayHeader = styled.div`
@@ -194,6 +195,6 @@ const WeatherIcon = styled.div`
 `;
 
 const WeatherIconImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
 `;
